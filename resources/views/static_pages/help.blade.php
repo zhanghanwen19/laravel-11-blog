@@ -1,3 +1,9 @@
-<div>
-    <!-- I have not failed. I've just found 10,000 ways that won't work. - Thomas Edison -->
-</div>
+<!DOCTYPE html>
+<html lang="{{ app()->getLocale() }}">
+<head>
+    <title>Weibo App</title>
+</head>
+<body>
+<h1>帮助页</h1>
+</body>
+</html>
