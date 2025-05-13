@@ -1,0 +1,17 @@
+// resources/sass/app.scss
+
+// 1. 导入你自己的变量
+@use 'variables'; // 你的 _variables.scss 文件
+
+// 2. 导入 URL 字体
+@import url('https://fonts.bunny.net/css?family=Nunito');
+
+// 3. 你自己的全局自定义样式
+body {
+    font-size: 14px;
+    font-weight: normal;
+}
+
+nav.navbar.navbar-expand-lg {
+    margin-bottom: 20px;
+}
