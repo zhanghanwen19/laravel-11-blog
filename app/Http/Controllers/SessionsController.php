@@ -31,7 +31,7 @@ class SessionsController extends Controller
             'password' => 'required',
         ]);
 
-        if (auth()->attempt($credentials)) {
+        if (auth()->attempt($credentials, $request->has('remember'))) {
             $request->session()->regenerate();
             return redirect()->route('users.show', auth()->user())->with('success', 'Logged in successfully.');
         }
