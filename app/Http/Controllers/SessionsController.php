@@ -38,4 +38,17 @@ class SessionsController extends Controller
 
         return back()->withInput()->with('danger', 'Invalid credentials.');
     }
+
+    /**
+     * Log the user out.
+     *
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function destroy(Request $request): RedirectResponse
+    {
+        auth()->logout();
+        $request->session()->invalidate();
+        return redirect('login')->with('success', 'Logged out successfully.');
+    }
 }
