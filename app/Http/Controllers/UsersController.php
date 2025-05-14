@@ -58,4 +58,43 @@ class UsersController extends Controller
         // Redirect to the user's profile with a session flash message.
         return redirect()->route('users.show', $user)->with('success', 'User created successfully.');
     }
+
+    /**
+     * Show the edit user form.
+     *
+     * @param User $user
+     * @return View
+     */
+    public function edit(User $user): View
+    {
+        return view('users.edit', compact('user'));
+    }
+
+    /**
+     * Update the user.
+     *
+     * @param Request $request
+     * @param User $user
+     * @return RedirectResponse
+     */
+    public function update(Request $request, User $user): RedirectResponse
+    {
+        // Validate the request data
+        $request->validate([
+            'name' => 'required|string|max:50',
+            'password' => 'nullable|string|min:6|confirmed',
+        ]);
+
+        // Update the user
+        // $request->filled() checks if the field is present and not empty
+        // $request->only() retrieves only the specified fields from the request
+        $data = $request->only('name');
+        if ($request->filled('password')) {
+            $data = $request->only('name','password');
+        }
+        $user->update($data);
+
+        // Redirect to the user's profile with a session flash message.
+        return redirect()->route('users.show', $user)->with('success', 'User updated successfully.');
+    }
 }
