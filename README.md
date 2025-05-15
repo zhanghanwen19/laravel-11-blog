@@ -203,3 +203,69 @@
     git merge user-crud
     git push
     ```
+
+## 📅 2025/05/14
+
+- 创建一个新的分支
+    ```bash
+    git checkout main
+    git checkout -b user-list
+    ```
+
+- 创建 UsersTableSeeder
+    ```bash
+    php artisan make:seeder UsersTableSeeder
+    ```
+- 运行数据填充
+    ```bash
+    php artisan migrate:fresh --seed
+    ```
+
+- 创建一个新的 migration 文件给 users 表添加一个 is_admin 字段
+    ```bash
+    php artisan make:migration add_is_admin_to_users_table --table=users
+    ```
+
+- 运行数据填充
+    ```bash
+    php artisan migrate:fresh --seed
+    ```
+
+- 你可以选择让 ide-helper 生成模型的注释
+    ```bash
+    php artisan ide-helper:models -W
+    ```
+
+- 完成用户列表页面、给用户表新增 is_admin 字段、删除用户
+    ```bash
+    git add -A
+    git commit -m "完成用户列表页面、给用户表新增 is_admin 字段、删除用户"
+    git checkout main
+    git merge user-list
+    git push
+    ```
+
+- 创建一个新的分支了来开发通过发送邮件来激活用户
+    ```bash
+    git checkout -b account-activation-password-resets
+    php artisan make:migration add_activation_to_users_table --table=users
+    ```
+- 运行数据填充
+    ```bash
+    php artisan migrate
+    ```
+
+- 你可以选择让 ide-helper 生成模型的注释
+    ```bash
+    php artisan ide-helper:models -W
+    ```
+
+- 开发完成用户激活功能
+    ```bash
+    git add -A
+    git commit -m "完成用户激活功能"
+    git checkout main
+    git merge account-activation-password-resets
+    git push
+    ```
+- ⚠️ 你们不要在主分支(main/master)上直接开发, 你们可以切换到我们的 account-activation-password-resets 分支上进行开发
