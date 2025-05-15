@@ -21,10 +21,21 @@ class UsersController extends Controller
     {
         // 只允许未认证的用户访问注册页面
         // 如果访问非 show, create, store 方法则需要认证, 会自动重定向到登录页面
-        $this->middleware('auth')->except(['show', 'create', 'store']);
+        $this->middleware('auth')->except(['show', 'create', 'store', 'index']);
 
         // 只允许未认证的用户访问注册页面
         $this->middleware('guest')->only('create');
+    }
+
+    /**
+     * Show the list of users.
+     *
+     * @return View
+     */
+    public function index(): View
+    {
+        $users = User::paginate($this->perPage); // 22:04
+        return view('users.index', compact('users'));
     }
 
     /**
@@ -99,10 +110,12 @@ class UsersController extends Controller
      * @param Request $request
      * @param User $user
      * @return RedirectResponse
+     * @throws AuthorizationException
      */
     public function update(Request $request, User $user): RedirectResponse
     {
         $this->authorize('update', $user);
+
         // Validate the request data
         $request->validate([
             'name' => 'required|string|max:50',
@@ -120,5 +133,23 @@ class UsersController extends Controller
 
         // Redirect to the user's profile with a session flash message.
         return redirect()->route('users.show', $user)->with('success', 'User updated successfully.');
+    }
+
+    /**
+     * Delete the user.
+     *
+     * @param User $user
+     * @return RedirectResponse
+     * @throws AuthorizationException
+     */
+    public function destroy(User $user): RedirectResponse
+    {
+        $this->authorize('destroy', $user);
+
+        // Delete the user
+        $user->delete();
+
+        // Redirect to the users list with a session flash message.
+        return redirect()->route('users.index')->with('success', 'User deleted successfully.');
     }
 }
