@@ -26,6 +26,9 @@ class UsersController extends Controller
 
         // 只允许未认证的用户访问注册页面
         $this->middleware('guest')->only('create');
+
+        // 限制注册请求的频率, 一个小时内最多 10 次请求
+        $this->middleware('throttle:10,60')->only('store');
     }
 
     /**
@@ -165,9 +168,9 @@ class UsersController extends Controller
         $view = 'emails.confirm';
         $data = compact('user');
         $from = 'zhw597426798@gmail.com';
-        $name = 'Zhanghanwen';
+        $name = 'ZhangHanwen';
         $to = $user->email;
-        $subject = "感谢注册 Zhanghanwen's blog 应用！请确认你的邮箱。";
+        $subject = "感谢注册 ZhangHanwen's blog 应用！请确认你的邮箱。";
 
         // Send the email
         Mail::send($view, $data, function ($message) use ($from, $name, $to, $subject) {
