@@ -38,7 +38,7 @@ class UsersController extends Controller
      */
     public function index(): View
     {
-        $users = User::paginate($this->perPage); // 22:04
+        $users = User::paginate($this->perPage);
         return view('users.index', compact('users'));
     }
 
@@ -60,7 +60,9 @@ class UsersController extends Controller
      */
     public function show(User $user): View
     {
-        return view('users.show', compact('user'));
+        $statuses = $user->statuses()->orderBy('created_at', 'desc')->paginate($this->perPage);
+
+        return view('users.show', compact('user', 'statuses'));
     }
 
     /**
@@ -168,7 +170,7 @@ class UsersController extends Controller
         $view = 'emails.confirm';
         $data = compact('user');
         $to = $user->email;
-        $subject = "感谢注册 ZhangHanwen's blog 应用！请确认你的邮箱。";
+        $subject = "感谢注册 Zhanghanwen's blog 应用！请确认你的邮箱。";
 
         // Send the email
         Mail::send($view, $data, function ($message) use ($to, $subject) {
