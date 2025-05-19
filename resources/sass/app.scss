@@ -2,7 +2,7 @@
 
 // 1. 导入你自己的变量
 @use 'variables';
-// 你的 _variables.scss 文件
+// 确保你的 _variables.scss 文件存在于 resources/sass/variables.scss 或 resources/sass/_variables.scss
 
 // 2. 导入 URL 字体
 @import url('https://fonts.bunny.net/css?family=Nunito');
@@ -11,6 +11,8 @@
 body {
     font-size: 14px;
     font-weight: normal;
+    // 注意：Tailwind 的 base 样式会设置 font-family 为 Figtree (根据你的 tailwind.config.js)
+    // 如果你希望 Nunito 作为全局字体，你需要在这里或 Tailwind 配置中明确设置
 }
 
 nav.navbar.navbar-expand-lg {
@@ -18,29 +20,24 @@ nav.navbar.navbar-expand-lg {
 }
 
 /* footer */
-footer.footer { // 更明确地指定是 .footer 类的 footer 元素
+footer.footer {
     margin-top: 45px;
     padding-top: 5px;
     border-top: 1px solid #eaeaea;
     color: #777;
     font-size: 13px;
     font-weight: bold;
-
-    // --- 添加 Flexbox 属性 ---
-    display: flex; // 将 footer 设置为 flex 容器
-    align-items: center; // 垂直居中所有子项 (图片、链接、div)
-    // justify-content: space-between; // 如果你希望左右两边的内容自动分开
+    display: flex;
+    align-items: center;
 
     img.brand-icon {
         width: 17px;
         height: 17px;
-        margin-right: 5px; // 在图片和 "Laravel" 文字之间添加一点间距
-        // vertical-align: middle; // 在 Flexbox 中, align-items 通常更适用
+        margin-right: 5px;
     }
 
-    a { // 这个会应用到 footer 内所有 a 标签
+    a {
         color: #555;
-        // text-decoration: none; // HTML中已有 class="text-decoration-none", 通常不需要重复
     }
 
     a:hover {
@@ -48,8 +45,6 @@ footer.footer { // 更明确地指定是 .footer 类的 footer 元素
     }
 
     div.float-end {
-        // 当父元素是 flex 容器时，子项的 float 属性通常会被忽略。
-        // 我们使用 margin-left: auto; 来将这个 div 推到右边。
         margin-left: auto;
     }
 }
@@ -83,6 +78,7 @@ section.user_info {
 .gravatar_edit {
     margin: 15px auto;
     text-align: center;
+
     .gravatar {
         float: none;
         max-width: 100px;
