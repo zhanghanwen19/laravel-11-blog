@@ -170,7 +170,7 @@ class UsersController extends Controller
         $view = 'emails.confirm';
         $data = compact('user');
         $to = $user->email;
-        $subject = "感谢注册 Zhanghanwen's blog 应用！请确认你的邮箱。";
+        $subject = "感谢注册 ZhangHanwen's blog 应用！请确认你的邮箱。";
 
         // Send the email
         Mail::send($view, $data, function ($message) use ($to, $subject) {
@@ -194,5 +194,31 @@ class UsersController extends Controller
 
         auth()->login($user);
         return redirect()->route('users.show', $user)->with('success', 'User activated successfully.');
+    }
+
+    /**
+     * Show the list of users that the user is following.
+     *
+     * @param User $user
+     * @return View
+     */
+    public function followings(User $user): View
+    {
+        $users = $user->followings()->paginate(30);
+        $title = $user->name . ' 关注的人';
+        return view('users.show_follow', compact('users', 'title'));
+    }
+
+    /**
+     * Show the list of users that are following the user.
+     *
+     * @param User $user
+     * @return View
+     */
+    public function followers(User $user): View
+    {
+        $users = $user->followers()->paginate(30);
+        $title = $user->name . ' 的粉丝';
+        return view('users.show_follow', compact('users', 'title'));
     }
 }
