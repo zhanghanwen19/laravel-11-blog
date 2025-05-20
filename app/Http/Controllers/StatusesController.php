@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Status;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
@@ -32,8 +33,18 @@ class StatusesController extends Controller
         return redirect()->back()->with('success', 'Status posted successfully!');
     }
 
-    public function destroy(Status $status)
+    /**
+     * Destroy a status.
+     *
+     * @param Status $status
+     * @return RedirectResponse
+     * @throws AuthorizationException
+     */
+    public function destroy(Status $status): RedirectResponse
     {
+        $this->authorize('destroy', $status);
+        $status->delete();
 
+        return redirect()->back()->with('success', 'Status deleted successfully!');
     }
 }
