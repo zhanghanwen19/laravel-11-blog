@@ -2,11 +2,14 @@
 
 @section('content')
     @if (Auth::check())
-        <div class="row mt-5">
+        <div class="row">
             <div class="col-md-8">
                 <section class="status_form">
                     @include('shared._status_form')
                 </section>
+                <h4>微博列表</h4>
+                <hr>
+                @include('shared._feed')
             </div>
             <aside class="col-md-4">
                 <section class="user_info">
@@ -15,8 +18,8 @@
             </aside>
         </div>
     @else
-        <div class="bg-light p-3 p-sm-5 rounded mt-5">
-            <h1>Hi 👋</h1>
+        <div class="bg-light p-3 p-sm-5 rounded">
+            <h1>Hello Laravel</h1>
             <p class="lead">
                 欢迎访问 <b>Zhang Hanwen' blog.</b>
             </p>
