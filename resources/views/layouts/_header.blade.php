@@ -1,9 +1,10 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container ">
-        <a class="navbar-brand" href="{{ route('home') }}">{{ config('app.name', "Zhanghanwen's Blog") }}</a>
+        <a class="navbar-brand" href="{{ route('home') }}">{{ config('app.name', "ZhangHanwen's Blog") }}</a>
         <ul class="navbar-nav justify-content-end">
             @if (Auth::check())
                 <li class="nav-item"><a class="nav-link" href="{{ route('users.index') }}">Users</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ route('about') }}">About</a></li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         {{ Auth::user()->name }}
